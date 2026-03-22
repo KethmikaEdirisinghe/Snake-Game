@@ -4,24 +4,23 @@
 void render(const Game *g){
     //2D buffer on the stack sized to the grid
     char buf[g->height][g->width];
-    int x,y;
-    for(y = 0; y<g->height; ++y){
-        for(x = 0;x<g->width; ++x){
+    
+    for(int y = 0; y<g->height; ++y){
+        for(int x = 0;x<g->width; ++x){
             buf[y][x] = ' ';
         }
     }
     
-int i,j
 // top and bottom borders as '#'
-for (int i = 0; i < g->width; ++i) {
-    buf[0][i] = '#';
-     buf[g->height - 1][i] = '#';
+for ( int x = 0; x < g->width; ++x) {
+    buf[0][x] = '#';
+     buf[g->height - 1][x] = '#';
 }
 
 // left and right borders as '#'
-for (int j = 0; j < g->height; ++j) {
-    buf[j][0] = '#';
-     buf[j][g->width - 1] = '#';
+for (int y = 0; y < g->height; ++y) {
+    buf[y][0] = '#';
+     buf[y][g->width - 1] = '#';
   }
 
   //if snake inside the grid place it 0
@@ -30,7 +29,24 @@ for (int j = 0; j < g->height; ++j) {
      buf[g->head.y][g->head.x] = '0';
   }
 
-  
+  //clear the console and move cursor to top-left
+  /*
+  \x1b is the ESC character (0x1B).
+[2J means “clear the entire screen.”
+[H means “move the cursor to home” (row 0, col 0).
+  */
+  printf("\x1b[2J\x1b[H");
 
+
+for(int y=0; y < g->height; ++y){
+
+    for(int x = 0; x < g->width; ++x ){
+        putchar(buf[y][x]);
+    }
+    putchar('\n');
+  }
+
+//help
+printf("Use WASD to move, Q to quit\n");  
 
 }
