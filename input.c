@@ -1,0 +1,20 @@
+#include <stdio.h>
+#include <conio.h>
+#include <stdbool.h>
+#include "input.h"
+
+void poll_input(Vec2 *dir,bool *running){
+    if(!_kbhit()){
+        return; //when no key id pressed
+    }
+    int c = _getch(); // read key without waiting for user hit enter
+    switch(c){
+        case 'w' : case 'W' : dir->x = 0; dir->y = -1; break;
+        case 's' : case 'S' : dir->x = 0; dir->y = 1; break;
+        case 'a' : case 'A' : dir->x = -1; dir->y = 0; break;
+        case 'd' : case 'D' : dir->x = 1; dir->y = 0; break;
+        case 'q' : case 'Q' : *running = false; //quit
+        default : break;
+
+    }
+}
