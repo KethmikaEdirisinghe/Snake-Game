@@ -3,6 +3,15 @@
 #include <stdbool.h>
 #include "input.h"
 
+
+void input_init(void) {
+    /* Nothing to set up for basic WASD/Q */
+}
+
+void input_shutdown(void) {
+    /* Nothing to restore */
+}
+
 void poll_input(Vec2 *dir,bool *running){
     if(!_kbhit()){
         return; //when no key id pressed
