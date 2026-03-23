@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
 #include <windows.h>
 #include "common.h"
@@ -14,10 +15,10 @@ int main(){
     input_init();
 
     while(running){
+        render(&g);// draw the current game grid to the console
         poll_input(&g.dir, &running); // read any pending keypress; update direction or set running=false
         update_game(&g, &running); // advance game state (move snake, detect collisions, etc.)
-        render(&g);// draw the current game grid to the console
-        sleep(80);// pause ~80 ms to cap the frame rate
+        Sleep(80);// pause ~80 ms to cap the frame rate
     }
 
     input_shutdown();

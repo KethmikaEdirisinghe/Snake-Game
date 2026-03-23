@@ -1,4 +1,4 @@
-#ifdef RENDER_H
+#ifndef RENDER_H
 #define RENDER_H
 #include "common.h"
 #include "logic.h"

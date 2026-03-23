@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "logic.h"
 #include <stdbool.h>
 
@@ -6,13 +7,15 @@ void init_game(Game *g, int w, int h){
     g->width = w;
     g->height = h;
     g->head =(Vec2){w/2, h/2}; // start from middle
-    g->dir = (Vec2){1, 0};  // by default righ side drieection start
+    g->dir = (Vec2){0, 0};  // by default righ side drieection start
     
 }
 
 void update_game(Game *g, bool *running){
     //advance head by current direction
-
+    if(g->dir.x==0 && g->dir.y == 0){
+        return;
+    }
     g->head.x+= g->dir.x;
     g->head.y+= g->dir.y;
 

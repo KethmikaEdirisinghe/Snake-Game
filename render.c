@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "render.h"
 
 void render(const Game *g){
@@ -35,7 +36,8 @@ for (int y = 0; y < g->height; ++y) {
 [2J means “clear the entire screen.”
 [H means “move the cursor to home” (row 0, col 0).
   */
-  printf("\x1b[2J\x1b[H");
+  //printf("\x1b[2J\x1b[H");
+  system("cls");
 
 
 for(int y=0; y < g->height; ++y){

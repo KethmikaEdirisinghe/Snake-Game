@@ -1,4 +1,4 @@
-#ifdef COMMON_H
+#ifndef COMMON_H
 #define COMMON_H
 #include <stdbool.h>
 typedef struct {int x ,y;} Vec2;
