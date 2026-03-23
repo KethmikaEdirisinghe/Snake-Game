@@ -1,8 +1,9 @@
 #ifndef RENDER_H
 #define RENDER_H
-#include "common.h"
 #include "logic.h"
 
-void render(const Game *g);
+void render_init    (void);   /* hide cursor, grab console handle */
+void render_shutdown(void);   /* restore cursor                   */
+void render         (const Game *g);
 
 #endif

@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <stdbool.h>
 #include <windows.h>
 #include "common.h"
@@ -7,22 +6,28 @@
 #include "render.h"
 #include "input.h"
 
-int main(){
+int main(void) {
     Game g;
     bool running = true;
 
-    init_game(&g,30,20); //grid width,height
+    render_init();              /* hide cursor, grab console handle   */
     input_init();
+    init_game(&g, 40, 22);     /* 40 wide x 22 tall (incl. borders)  */
 
-    while(running){
-        render(&g);// draw the current game grid to the console
-        poll_input(&g.dir, &running); // read any pending keypress; update direction or set running=false
-        update_game(&g, &running); // advance game state (move snake, detect collisions, etc.)
-        Sleep(80);// pause ~80 ms to cap the frame rate
+    
+    render(&g);
+
+    while (running) {
+      
+        poll_input(&g.dir, &g.next_dir, &running);
+        update_game(&g, &running);
+        render(&g);
+        Sleep(200);           
     }
 
+    render_shutdown();          
     input_shutdown();
-    printf("\n!Game Over!\n");
-    return 0;
 
+    printf("\n\n  *** GAME OVER ***   Final Score: %d\n\n", g.score);
+    return 0;
 }

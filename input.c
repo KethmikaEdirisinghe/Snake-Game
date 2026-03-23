@@ -13,18 +13,25 @@ void input_shutdown(void) {
     /* Nothing to restore */
 }
 
-void poll_input(Vec2 *dir,bool *running){
-    if(!_kbhit()){
-        return; //when no key id pressed
-    }
-    int c = _getch(); // read key without waiting for user hit enter
-    switch(c){
-        case 'w' : case 'W' : dir->x = 0; dir->y = -1; break;
-        case 's' : case 'S' : dir->x = 0; dir->y = 1; break;
-        case 'a' : case 'A' : dir->x = -1; dir->y = 0; break;
-        case 'd' : case 'D' : dir->x = 1; dir->y = 0; break;
-        case 'q' : case 'Q' : *running = false; //quit
-        default : break;
+void poll_input(const Vec2 *cur, Vec2 *next, bool *running) {
+  
+    while (_kbhit()) {
+        int  c  = _getch();
+        Vec2 nd = *next;   /* default: keep whatever was queued before */
 
+        switch (c) {
+            case 'w': case 'W': nd = (Vec2){ 0, -1}; break;
+            case 's': case 'S': nd = (Vec2){ 0,  1}; break;
+            case 'a': case 'A': nd = (Vec2){-1,  0}; break;
+            case 'd': case 'D': nd = (Vec2){ 1,  0}; break;
+            case 'q': case 'Q': *running = false; return;
+            default : continue;   /* ignore unrelated keys */
+        }
+
+      
+        if (nd.x == -cur->x && nd.y == -cur->y)
+            continue;
+
+        *next = nd;
     }
 }
